@@ -3,14 +3,6 @@ module CalDAV
         include Icalendar
         attr_accessor :host, :port, :url, :user, :password, :ssl
 
-        def format=( fmt )
-            @format = fmt
-        end
-
-        def format
-            @format ||= Format::Debug.new
-        end
-
         def initialize( *args )
             case args.length
             when 3
@@ -57,7 +49,7 @@ module CalDAV
                 req.body = CalDAV::Request::ReportVEVENT.new( start, stop ).to_xml
                 res = http.request( req )
             }
-            format.parse_calendar( res.body )
+            res
         end
         
         def get( uuid )
@@ -67,9 +59,8 @@ module CalDAV
                 req.basic_auth @user, @password
                 res = http.request( req )
             }
-
             # FIXME: process HTTP code
-            format.parse_single( res.body )
+            res
         end
     
         def delete( uuid )
@@ -223,7 +214,7 @@ END:VCALENDAR"""
                 res = http.request( req )
             }
             # FIXME: process HTTP code
-            format.parse_todo( res.body )
+            res
         end
         
         def filterTimezone( vcal )

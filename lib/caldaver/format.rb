@@ -1,4 +1,4 @@
-module CalDAV
+module CalDAVer
     module Format
         class Raw
             def method_missing(m, *args, &block)
@@ -16,7 +16,7 @@ module CalDAV
                 REXML::XPath.each( xml, '//c:calendar-data/', { "c"=>"urn:ietf:params:xml:ns:caldav"} ){ |c|
                     result += parse_events( c.text )
                 }
-                return result
+                result
             end
 
             def parse_todo( body )
@@ -27,7 +27,7 @@ module CalDAV
                     p parse_tasks( c.text )
                     result += parse_tasks( c.text )
                 }
-                return result
+                result
             end
 
             def parse_tasks( vcal )
@@ -38,7 +38,7 @@ module CalDAV
                         return_tasks << ttask
                     }
                 }
-                return return_tasks
+                return_tasks
             end
 
             def parse_events( vcal )
@@ -56,7 +56,7 @@ module CalDAV
                         # unless ev.recurrence_id.to_s.empty? # skip recurring events
                     }
                 }
-                return return_events
+                return_events
             end
 
             def parse_single( body )

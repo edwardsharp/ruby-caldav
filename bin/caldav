@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
 
 require 'caldav'
+require 'caldaver'
 
-prg = CalDAV::CalDAVer.new
-prg.run_args( ARGV )
+prg = CalDAVer::CalDAVer.new
+prg.run_args(ARGV)
 
