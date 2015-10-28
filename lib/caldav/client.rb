@@ -94,17 +94,22 @@ module CalDAV
           def create event
             nowstr = DateTime.now.strftime "%Y%m%dT%H%M%SZ"
             uuid   = UUID.generate
-            dings  = """BEGIN:VCALENDAR
-  PRODID:Caldav.rb
-  VERSION:2.0
-  BEGIN:VEVENT
-  CREATED:#{nowstr}
-  UID:#{uuid}
-  SUMMARY:#{event.summary}
-  DTSTART:#{event.dtstart.strftime("%Y%m%dT%H%M%S")}
-  DTEND:#{event.dtend.strftime("%Y%m%dT%H%M%S")}
-  END:VEVENT
-  END:VCALENDAR"""
+            #hmm, DTSTAMP:20151026T184308Z
+            dings  = """
+            BEGIN:VCALENDAR
+VERSION:0.1
+PRODID:PARTYWIRKS-RUBY-CAL
+BEGIN:VEVENT
+CREATED:#{nowstr}
+UID:#{uuid}
+DTEND;TZID=America/Los_Angeles:#{event.dtstart.strftime("%Y%m%dT%H%M%S")}
+TRANSP:OPAQUE
+SUMMARY:#{event.summary}
+DESCRIPTION:#{event.description}
+DTSTART;TZID=America/Los_Angeles:#{event.dtend.strftime("%Y%m%dT%H%M%S")}
+SEQUENCE:0
+END:VEVENT
+END:VCALENDAR"""
 
             res = nil
             http = Net::HTTP.new(@host, @port) 
