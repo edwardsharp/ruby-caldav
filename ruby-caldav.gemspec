@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.authors     = ["Martin Povolny"]
   s.email       = ["martin.povolny@gmail.com"]
   
-  s.add_runtime_dependency 'rexml'
+  s.add_runtime_dependency 'rubysl-rexml'
   s.add_runtime_dependency 'icalendar'
   s.add_runtime_dependency 'uuid'
   s.add_runtime_dependency 'builder'
