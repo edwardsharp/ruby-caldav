@@ -94,7 +94,7 @@ module CalDAV
           def create event
             nowstr = DateTime.now.strftime "%Y%m%dT%H%M%SZ"
             uuid   = UUID.generate
-            #hmm, DTSTAMP:20151026T184308Z
+            #hmm, DTSTAMP:20151026T184308Z FIX-THIS!
             dings  = """
             BEGIN:VCALENDAR
 VERSION:0.1
@@ -107,6 +107,7 @@ TRANSP:OPAQUE
 SUMMARY:#{event.summary}
 DESCRIPTION:#{event.description}
 DTSTART;TZID=America/Los_Angeles:#{event.dtend.strftime("%Y%m%dT%H%M%S")}
+DTSTAMP:20151026T184308Z
 SEQUENCE:0
 END:VEVENT
 END:VCALENDAR"""
