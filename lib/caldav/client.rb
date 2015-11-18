@@ -107,7 +107,7 @@ TRANSP:OPAQUE
 SUMMARY:#{event.summary}
 DESCRIPTION:#{event.description}
 DTSTART;TZID=America/Los_Angeles:#{event.dtend.strftime("%Y%m%dT%H%M%S")}
-DTSTAMP:20151026T184308Z
+DTSTAMP:#{Time.now.strftime("%Y%m%dT%H%M%S")}
 SEQUENCE:0
 END:VEVENT
 END:VCALENDAR"""
