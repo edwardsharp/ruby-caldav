@@ -95,22 +95,17 @@ module CalDAV
             nowstr = DateTime.now.strftime "%Y%m%dT%H%M%SZ"
             uuid   = UUID.generate
             #hmm, DTSTAMP:20151026T184308Z FIX-THIS!
-            dings  = """
-            BEGIN:VCALENDAR
-VERSION:0.1
-PRODID:PARTYWIRKS-RUBY-CAL
-BEGIN:VEVENT
-CREATED:#{nowstr}
-UID:#{uuid}
-DTEND;TZID=America/Los_Angeles:#{event.dtstart.strftime("%Y%m%dT%H%M%S")}
-TRANSP:OPAQUE
-SUMMARY:#{event.summary}
-DESCRIPTION:#{event.description}
-DTSTART;TZID=America/Los_Angeles:#{event.dtend.strftime("%Y%m%dT%H%M%S")}
-DTSTAMP:#{Time.now.strftime("%Y%m%dT%H%M%S")}
-SEQUENCE:0
-END:VEVENT
-END:VCALENDAR"""
+            # Create a calendar with an event (standard method)
+            cal = Icalendar::Calendar.new
+            cal.event do |e|
+              e.dtstart     = Icalendar::Values::Date.new(event.dtstart)
+              e.dtend       = Icalendar::Values::Date.new(event.dtend)
+              e.summary     = event.summary
+              e.description = event.description
+              e.ip_class    = "PRIVATE"
+            end
+
+            dings  = cal.to_ical
 
             res = nil
             http = Net::HTTP.new(@host, @port) 
