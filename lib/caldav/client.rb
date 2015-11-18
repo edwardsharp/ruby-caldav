@@ -92,10 +92,9 @@ module CalDAV
           end
       
           def create event
-            nowstr = DateTime.now.strftime "%Y%m%dT%H%M%SZ"
-            uuid   = UUID.generate
-            #hmm, DTSTAMP:20151026T184308Z FIX-THIS!
-            # Create a calendar with an event (standard method)
+            # nowstr = DateTime.now.strftime "%Y%m%dT%H%M%SZ"
+
+            # Create a calendar with an event
             cal = Icalendar::Calendar.new
             cal.event do |e|
               e.dtstart     = Icalendar::Values::Date.new(event.dtstart)
@@ -103,9 +102,11 @@ module CalDAV
               e.summary     = event.summary
               e.description = event.description
               e.ip_class    = "PRIVATE"
+              e.url         = event.url
             end
 
             dings  = cal.to_ical
+            uuid   = cal.event.uid
 
             res = nil
             http = Net::HTTP.new(@host, @port) 

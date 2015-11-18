@@ -11,7 +11,7 @@ require 'time'
 end
 
 class Event
-    attr_accessor :uid, :created, :dtstart, :dtend, :lastmodified, :summary, :description, :name, :action
+    attr_accessor :uid, :created, :dtstart, :dtend, :lastmodified, :summary, :description, :name, :action, :url
 end
 
 class Todo
