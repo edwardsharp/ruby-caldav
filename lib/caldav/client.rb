@@ -97,8 +97,8 @@ module CalDAV
             # Create a calendar with an event
             cal = Icalendar::Calendar.new
             cal.event do |e|
-              e.dtstart     = Icalendar::Values::Date.new(event.dtstart)
-              e.dtend       = Icalendar::Values::Date.new(event.dtend)
+              e.dtstart     = Icalendar::Values::DateTime.new(event.dtstart)
+              e.dtend       = Icalendar::Values::DateTime.new(event.dtend)
               e.summary     = event.summary
               e.description = event.description
               e.ip_class    = "PRIVATE"
